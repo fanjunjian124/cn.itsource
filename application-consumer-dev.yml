@@ -1,0 +1,26 @@
+server:
+  port: 9003
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server-7001.com:7001/eureka/,http://eureka-server-7002.com:7002/eureka/ #eureka服务列表中显示ip地址
+  instance:
+    prefer-ip-address: true
+spring:
+  application:
+    name: service-consumer-fegin #服务名不能用下划线，显示在界面都是大写的名字
+feign:
+   hystrix:
+       enabled: true #开启熔断支持
+   client:
+    config:
+      remote-service:           #服务名，填写default为所有服务
+        connectTimeout: 3000
+        readTimeout: 3000
+hystrix:
+  command:
+      default:
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 3000
